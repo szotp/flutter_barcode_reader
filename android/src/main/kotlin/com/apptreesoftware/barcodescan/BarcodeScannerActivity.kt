@@ -29,6 +29,8 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
         scannerView = ZXingScannerView(this)
         scannerView.setAutoFocus(true)
         setContentView(scannerView)
+
+        actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -39,6 +41,7 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             val item = menu.add(0,
                     TOGGLE_FLASH, 0, titleOff)
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
         } else {
             val item = menu.add(0,
                     TOGGLE_FLASH, 0, titleOn)
@@ -53,6 +56,12 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             this.invalidateOptionsMenu()
             return true
         }
+
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
         return super.onOptionsItemSelected(item)
     }
 
